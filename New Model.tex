@@ -433,43 +433,36 @@ We now prove that if the Social Planner can observe the true state $\theta$ (the
 
 \begin{theorem}[Decentralization via Piece-Wise Prize]
 \label{Theorem: Implementation}
-    Assume the Social Planner observes the true state $\theta$. Assume the baseline conditions $P_h^0 > P_l^0$ and physical premium slack ($\bar{W}_h \geq \hat{W}_h$) hold, alongside the Strict Strong Advantage Condition (Assumption \ref{As: Strong Advantage Condition}) and Well-Behaved Payoffs (Assumption \ref{As: Regularity of Survival Function}). 
+    Assume the Social Planner observes the true state $\theta$. Fix a premium target $r_2$ such that the strict deficit condition
+    \[
+        D_h(a^{eff}) > D_l(a^{eff})
+    \]
+    holds. Suppose further that the baseline conditions $P_h^0 > P_l^0$ and physical premium slack ($\bar{W}_h \geq \hat{W}_h$) hold, and that Assumption \ref{As: Regularity of Survival Function} is satisfied. 
     
-    The Social Planner can decentralize the social choice function $\phi (\theta)$ by setting a piece-wise prize scheme $M = (r_2, \tau^*)$ where $\tau^* = MC_h^{eff}$. Under this mechanism, there exists a unique stable unilateral-separation equilibrium which perfectly aligns the subgame cutoffs: $a_{1,h}^* = a_{1,l}^* = a^{eff}$.
+    The Social Planner can decentralize the social choice function $\phi (\theta)$ by setting a piece-wise prize scheme $M = (r_2, \tau^*)$ where $\tau^* = MC_h^{eff}$. Under this mechanism, there exists a unique strict equilibrium on the unilateral branch, hence a unique locally stable unilateral-separation equilibrium, and it satisfies
+    \[
+        (W_h^*, W_l^*) = (\hat{W}_h, 0)
+        \quad \text{and} \quad
+        a_{1,h}^* = a_{1,l}^* = a^{eff}.
+    \]
 \end{theorem}
 
 \begin{proof}
-    We prove this by constructive mapping, demonstrating that the planner can deterministically engineer the target optimal equilibrium.
-    
-    \textbf{Step 1: Determine the Physical Target.}
-    Observing $\theta$, the planner uniquely calculates the globally efficient cutoff $a^{eff}$ that perfectly clears the exogenous capacity:
+    Set $\tau^* = MC_h^{eff}$. The assumptions of Proposition \ref{prop: Efficiency Improvement} are then satisfied for the chosen $r_2$. Therefore the induced game has a unique equilibrium on the unilateral branch with $W_l^* = 0$ and $W_h^* \in (0,\hat{W}_h]$. This equilibrium is strict, hence locally stable, and its cutoffs satisfy
     \[
-        S_h(a^{eff}) + S_l(a^{eff}) = R
+        a_h^0 < a_{1,h}^* \le a^{eff} \le a_{1,l}^* < a_l^0.
     \]
-    To realize $\phi (\theta)$, the planner's explicit goal is to induce a subgame where $a_{1,h}^* = a_{1,l}^* = a^{eff}$.
+    Because $\tau^* = MC_h^{eff}$, Proposition \ref{prop: Efficiency Improvement} further gives the middle equalities, so
+    \[
+        a_{1,h}^* = a_{1,l}^* = a^{eff}.
+    \]
+    Since $MC_h(\cdot,0)$ is strictly increasing and $MC_h(\hat{W}_h,0)=MC_h^{eff}=\tau^*$, the unique solution on the unilateral branch is $W_h^*=\hat{W}_h$.
 
-    \textbf{Step 2: Calculate Subgame Anchors.}
-    We aim to construct a piece-wise prize scheme that induces a unilateral separation equilibrium ($W_l^* = 0$) to achieve this alignment. If $W_l^* = 0$ and alignment is successfully achieved ($a_{1,l}^* = a^{eff}$), the market standard is entirely dictated by the disadvantaged sender's conditional expectation. The planner calculates this target market standard:
+    It remains to verify that the implemented allocation coincides with $\phi(\theta)$. Because $W_l^*=0$ and both standard-pool cutoffs equal $a^{eff}$, the standard pool contains exactly the mass of products with quality at least $a^{eff}$ that are not extracted. By Lemma \ref{Lemma: No Cherry Picking}, the premium pool extracted by sender $h$ also contains only products with quality at least $a^{eff}$. Hence every selected product under the mechanism has true quality at least $a^{eff}$. Total selected mass is
     \[
-        r_1^{eff} = \mu_l(a^{eff})
+        S_h(a^{eff}) + S_l(a^{eff}) = R,
     \]
-    The planner then selects any admissible premium target $r_2 > \mu_l(a_l^0) > r_1^{eff}$ that formally activates the upper tier.
-
-    \textbf{Step 3: Calculate Optimal Extraction and Required Incentive.}
-    To force $a_{1,h}^*$ down to $a^{eff}$, the planner calculates the exact mass $\hat{W}_h$ that sender $h$ must separate. By Lemma \ref{Lemma: Quantity Equivalence}, the standard placement required in the subgame is strictly proportional to the quality deficit: $Q_h^{eff} = \frac{D_h(a^{eff})}{r_2 - r_1^{eff}}$. Since total capacity is conserved ($S_h(a^{eff}) = Q_h^{eff} + \hat{W}_h$), the required theoretical extraction is:
-    \[
-        \hat{W}_h = S_h(a^{eff}) - \frac{D_h(a^{eff})}{r_2 - r_1^{eff}}
-    \]
-    To induce exactly this extraction mass, the planner evaluates the marginal cost function $MC_h(W_h, 0)$ precisely at this coordinate to find the optimal prize ratio $\tau^*$:
-    \[
-        \tau^* = MC_h^{eff} \equiv MC_h(\hat{W}_h, 0)
-    \]
-
-    \textbf{Step 4: Equilibrium Verification.}
-    The planner announces the mechanism $M = (r_2, \tau^*)$.
-    By Proposition \ref{prop: Efficiency Improvement}, since $\tau^*$ evaluates exactly at $MC_h^{eff}$ (and physical slack $\bar{W}_h > \hat{W}_h$ ensures this is feasible), the induced game possesses a unique locally stable equilibrium along the unilateral branch where $W_l^* = 0$ and $W_h^* = \hat{W}_h$.
-    
-    Substituting $(W_h^*, W_l^*) = (\hat{W}_h, 0)$ back into the senders' subgame market clearance constraints rigorously forces the cutoffs to strictly equal $a_{1,h}^* = a_{1,l}^* = a^{eff}$. Finally, recall Lemma \ref{Lemma: No Cherry Picking}, the premium pool will not contain any product with quality less than $ a^{eff}$, so all selected products are those with highest true quality. Therefore, the decentralized, self-interested choices of the senders and receivers under the prize scheme perfectly align with the Social Choice Function.
+    so the mechanism selects exactly the capacity-filling set of products above the efficient cutoff. This is precisely $\phi(\theta)$.
 \end{proof}
 
 
