@@ -483,63 +483,146 @@ With this delayed feedback, the planner can utilize a simple, gradient-based Tâ
 
 \begin{theorem}[Local Dynamic Convergence]
 \label{Theorem: Dynamic Convergence}
-    Assume all static prerequisites for decentralization hold (i.e., $P_h^0 > P_l^0$, physical premium slack $\bar{W}_h > \hat{W}_h$, the Strict Strong Advantage Condition, and Assumption \ref{As: Regularity of Survival Function}). 
-    
-    Consider the dynamic updating rule:
+    Assume Assumption \ref{As: Delayed Observation} and the hypotheses of Theorem \ref{Theorem: Implementation}, with strict premium slack $\bar{W}_h > \hat{W}_h$. Let $\tau^* = MC_h^{eff}$. For each period $t$, let $\Delta^{(t)} = a_{1,l}^{*(t)} - a_{1,h}^{*(t)}$ denote the observed cutoff gap under the induced equilibrium. Consider the dynamic updating rule:
     \[
         \tau^{(t+1)} = \tau^{(t)} + \gamma \cdot \Delta^{(t)}
     \]
-    There exists a neighborhood $U$ around the optimal prize ratio $\tau^*$ and a threshold $\bar{\gamma} > 0$ such that for any initial active prize ratio $\tau^{(1)} \in U$ and any learning rate $\gamma \in (0, \bar{\gamma})$, the sequence of prize schemes strictly stays within the unilateral-separation branch and monotonically converges to the optimal scheme: $\lim_{t \to \infty} \tau^{(t)} = \tau^*$. Asymptotically, this dynamically decentralizes the social choice function $\phi (\theta)$.
+    There exist a neighborhood $U$ of $\tau^*$ and a threshold $\bar{\gamma} > 0$ such that, for any initial prize ratio $\tau^{(1)} \in U$ and any learning rate $\gamma \in (0, \bar{\gamma})$, the induced equilibrium remains on the unilateral-separation branch for all $t$, and the sequence $\{\tau^{(t)}\}_{t \ge 1}$ converges monotonically to $\tau^*$. Consequently,
+    \[
+        a_{1,h}^{*(t)} \to a^{eff}
+        \quad \text{and} \quad
+        a_{1,l}^{*(t)} \to a^{eff},
+    \]
+    so the induced allocations converge to $\phi (\theta)$.
 \end{theorem}
 
 
 \begin{proof}
-    We prove this by demonstrating the local asymptotic stability of the updating rule, utilizing the strict comparative statics established on the unilateral separation branch ($W_l = 0$).
-    
-    First, we evaluate the properties of the mismatch error function $\Delta(\tau) = a_{1,l}^*(\tau) - a_{1,h}^*(\tau)$ restricted to the unilateral branch.
-    By Assumption \ref{As: Regularity of Survival Function} and our $C^1$ premise, $MC_h(W_h, 0)$ is continuously differentiable with $\frac{\partial MC_h}{\partial W_h} > 0$ evaluated near $\hat{W}_h$. By the Inverse Function Theorem, the extraction response function $W_h(\tau)$ is locally continuously differentiable and strictly increasing: $\frac{\mathrm{d}W_h}{\mathrm{d}\tau} > 0$.
-    
-    In Lemma \ref{lemma:MC_derivation}, we established that the advantaged sender's subgame cutoff strictly rises with extraction: $\frac{\mathrm{d}a_{1,h}^*}{\mathrm{d}W_h} > 0$. Applying the chain rule, the cutoff strictly increases with respect to the prize ratio:
-    \[
-        \frac{\mathrm{d}a_{1,h}^*}{\mathrm{d}\tau} = \frac{\mathrm{d}a_{1,h}^*}{\mathrm{d}W_h} \cdot \frac{\mathrm{d}W_h}{\mathrm{d}\tau} > 0
-    \]
-    The global subgame market clearance uniquely satisfies $S_h(a_{1,h}^*) + S_l(a_{1,l}^*) = R$. Totally differentiating this identity with respect to $\tau$ yields:
-    \[
-        -f_h^*(a_{1,h}^*) \frac{\mathrm{d}a_{1,h}^*}{\mathrm{d}\tau} - f_l^*(a_{1,l}^*) \frac{\mathrm{d}a_{1,l}^*}{\mathrm{d}\tau} = 0 \implies \frac{\mathrm{d}a_{1,l}^*}{\mathrm{d}\tau} = -\frac{f_h^*(a_{1,h}^*)}{f_l^*(a_{1,l}^*)} \frac{\mathrm{d}a_{1,h}^*}{\mathrm{d}\tau} < 0
-    \]
-    Because $a_{1,h}^*$ strictly increases and $a_{1,l}^*$ strictly decreases as $\tau$ increases, the derivative of the mismatch error function is strictly negative:
-    \[
-        \Delta'(\tau) = \frac{\mathrm{d}a_{1,l}^*}{\mathrm{d}\tau} - \frac{\mathrm{d}a_{1,h}^*}{\mathrm{d}\tau} < 0
-    \]
-    By definition of the optimal decentralization target, $\tau^*$ uniquely satisfies $\Delta(\tau^*) = 0$. At $\tau^*$, the strict inequality $\tau^* < MC_l(\hat{W}_h, 0)$ holds. By continuity, there exists a local neighborhood $U_0$ around $\tau^*$ where $\tau < MC_l(W_h(\tau), 0)$ remains strictly satisfied, guaranteeing that the best response never leaves the unilateral branch ($W_l^* = 0$).
+    Assumption \ref{As: Delayed Observation} makes $\Delta^{(t)}$ observable after each period, so the planner can implement the update rule.
 
-    Now, define the discrete-time mapping $G(\tau) = \tau + \gamma \Delta(\tau)$. The fixed point of this mapping exists strictly at $\tau = \tau^*$.
-    Evaluating the local stability at the fixed point, the derivative is:
+    By Theorem \ref{Theorem: Implementation}, at $\tau^* = MC_h^{eff}$ the game admits a strict unilateral equilibrium $(\hat{W}_h,0)$ with
     \[
-        G'(\tau^*) = 1 + \gamma \Delta'(\tau^*)
+        a_{1,h}^* = a_{1,l}^* = a^{eff}.
+    \]
+    The strict deficit condition $D_h(a^{eff}) > D_l(a^{eff})$, together with Lemma \ref{Lemma: Quantity Equivalence}, implies
+    \[
+        Q_h^{eff} > Q_l^{eff} > 0.
+    \]
+    Hence Lemma \ref{Lemma: Marginal Cost} gives
+    \[
+        MC_l(\hat{W}_h,0) > MC_h(\hat{W}_h,0) = \tau^*.
     \]
 
-Because $\Delta'(\tau^*) < 0$, choose any
-\[
-0<\gamma<\bar{\gamma}\equiv \frac{1}{-\Delta'(\tau^*)}.
-\]
-Then
-\[
-0<1+\gamma\Delta'(\tau^*)<1.
-\]
-Since $\Delta'(\tau)$ is continuous, there exists a sufficiently small neighborhood $U_1$ of $\tau^*$ such that for all $\tau\in U_1$,
-\[
-0<G'(\tau)=1+\gamma\Delta'(\tau)<1.
-\]
-Hence $G$ is strictly increasing and locally contractive on $U_1$. By the mean value theorem, for any $\tau\in U_1$,
-\[
-\tau<\tau^* \implies \tau<G(\tau)<\tau^*,
-\qquad
-\tau>\tau^* \implies \tau^*<G(\tau)<\tau.
-\]
-Therefore, after possibly shrinking to a forward-invariant neighborhood $U\subseteq U_0\cap U_1$, the iterates remain on the same side of $\tau^*$ and converge monotonically to $\tau^*$.
+    Because $\bar{W}_h > \hat{W}_h$, the unilateral locus $W_l = 0$ is feasible on an open interval around $\hat{W}_h$. Assumption \ref{As: Regularity of Survival Function} implies that $MC_h(\cdot,0)$ is $C^1$ and strictly increasing there. Therefore, after shrinking if necessary, there exists a neighborhood $U_0$ of $\tau^*$ and a unique $C^1$ map $W_h(\tau)$ such that
+    \[
+        MC_h(W_h(\tau),0) = \tau,
+        \qquad
+        W_h(\tau^*) = \hat{W}_h,
+        \qquad
+        \frac{\mathrm{d}W_h}{\mathrm{d}\tau} > 0.
+    \]
+    Strict concavity of $\Pi_h(\cdot,0)$ implies that $W_h(\tau)$ is sender $h$'s unique best response to $W_l=0$.
 
-    Therefore, if initiated within the invariant neighborhood $U$ with step size $\gamma$, the Tâtonnement process strictly contracts and the sequence $\tau^{(t)}$ monotonically converges to $\tau^*$, naturally discovering and decentralizing the efficient alignment without ex-ante knowledge of the true state $\theta$.
+    Moreover, continuity of $MC_l(W_h,0)-MC_h(W_h,0)$ and the strict inequality at $\hat{W}_h$ imply, after shrinking $U_0$ if necessary,
+    \[
+        \tau = MC_h(W_h(\tau),0) < MC_l(W_h(\tau),0)
+        \qquad \text{for all } \tau \in U_0.
+    \]
+    Therefore
+    \[
+        \left.\frac{\partial \Pi_l}{\partial W_l}\right|_{(W_h(\tau),0)}
+        = A_1\big(\tau - MC_l(W_h(\tau),0)\big) < 0,
+    \]
+    and strict concavity of $\Pi_l(\cdot,W_h(\tau))$ implies that $W_l=0$ remains sender $l$'s unique best response. Hence the induced equilibrium stays on the unilateral branch throughout $U_0$.
+
+    Let $a_h(\tau)$, $a_l(\tau)$, and $r_1(\tau)$ denote the induced cutoff and market-standard functions on this branch. After shrinking $U_0$ once more, continuity and $Q_h^{eff} > Q_l^{eff} > 0$ imply $Q_h(\tau),Q_l(\tau) > 0$ on $U_0$. The unilateral equilibrium system is
+    \begin{align}
+        \int_{a_h}^{\bar{a}_h} (x-r_1) f_h^*(x) \, \mathrm{d}x &= (r_2-r_1)W_h \label{eq:dyn_h}\\
+        \int_{a_l}^{\bar{a}_l} (x-r_1) f_l^*(x) \, \mathrm{d}x &= 0 \label{eq:dyn_l}\\
+        S_h(a_h)+S_l(a_l) &= R. \label{eq:dyn_clear}
+    \end{align}
+    Differentiating (\ref{eq:dyn_clear}) with respect to $W_h$ yields
+    \[
+        -f_h^*(a_h)\frac{\mathrm{d}a_h}{\mathrm{d}W_h}
+        -f_l^*(a_l)\frac{\mathrm{d}a_l}{\mathrm{d}W_h}
+        = 0.
+    \]
+    Differentiating (\ref{eq:dyn_l}) gives
+    \[
+        (r_1-a_l)f_l^*(a_l)\frac{\mathrm{d}a_l}{\mathrm{d}W_h}
+        - S_l(a_l)\frac{\mathrm{d}r_1}{\mathrm{d}W_h}
+        = 0,
+    \]
+    while differentiating (\ref{eq:dyn_h}) gives
+    \[
+        (r_1-a_h)f_h^*(a_h)\frac{\mathrm{d}a_h}{\mathrm{d}W_h}
+        - Q_h\frac{\mathrm{d}r_1}{\mathrm{d}W_h}
+        = r_2-r_1.
+    \]
+    Eliminating $\frac{\mathrm{d}a_l}{\mathrm{d}W_h}$ and $\frac{\mathrm{d}r_1}{\mathrm{d}W_h}$ yields
+    \[
+        f_h^*(a_h)\frac{\mathrm{d}a_h}{\mathrm{d}W_h}
+        \left[
+            (r_1-a_h)+\frac{Q_h}{S_l(a_l)}(r_1-a_l)
+        \right]
+        = r_2-r_1 > 0.
+    \]
+    Hence
+    \[
+        \frac{\mathrm{d}a_h}{\mathrm{d}W_h} > 0,
+        \qquad
+        \frac{\mathrm{d}a_l}{\mathrm{d}W_h} < 0.
+    \]
+    Since $\frac{\mathrm{d}W_h}{\mathrm{d}\tau} > 0$, it follows that
+    \[
+        \frac{\mathrm{d}a_h}{\mathrm{d}\tau} > 0,
+        \qquad
+        \frac{\mathrm{d}a_l}{\mathrm{d}\tau} < 0.
+    \]
+    Therefore the mismatch function
+    \[
+        \Delta(\tau) = a_l(\tau) - a_h(\tau)
+    \]
+    is $C^1$ on $U_0$ and satisfies $\Delta'(\tau)<0$ there. By Theorem \ref{Theorem: Implementation},
+    \[
+        \Delta(\tau^*) = 0.
+    \]
+    Hence, after shrinking to a neighborhood $U_1 \subseteq U_0$, $\Delta$ is strictly decreasing on $U_1$ and $\tau^*$ is its unique zero.
+
+    Define
+    \[
+        G(\tau) = \tau + \gamma \Delta(\tau).
+    \]
+    Since $\Delta'(\tau^*)<0$, choose
+    \[
+        0<\gamma<\bar{\gamma}\equiv \frac{1}{-\Delta'(\tau^*)}.
+    \]
+    Then
+    \[
+        0<1+\gamma\Delta'(\tau^*)<1.
+    \]
+    By continuity of $\Delta'$, after shrinking to a neighborhood $U \subseteq U_1$,
+    \[
+        0<G'(\tau)=1+\gamma\Delta'(\tau)<1
+        \qquad \text{for all } \tau\in U.
+    \]
+    Thus $G$ is strictly increasing and locally contractive on $U$. Since $\Delta$ is strictly decreasing and $\Delta(\tau^*)=0$, the mean value theorem implies
+    \[
+        \tau<\tau^* \implies \tau<G(\tau)<\tau^*,
+        \qquad
+        \tau>\tau^* \implies \tau^*<G(\tau)<\tau.
+    \]
+    Therefore $U$ can be chosen forward invariant, the iterates remain on the unilateral branch for all $t$, and $\tau^{(t)}$ converges monotonically to $\tau^*$.
+
+    Finally, continuity of $W_h(\tau)$, $a_h(\tau)$, and $a_l(\tau)$ on the unilateral branch implies
+    \[
+        W_h(\tau^{(t)}) \to \hat{W}_h,
+        \qquad
+        a_h(\tau^{(t)}) \to a^{eff},
+        \qquad
+        a_l(\tau^{(t)}) \to a^{eff}.
+    \]
+    By Theorem \ref{Theorem: Implementation}, the limit allocation is exactly $\phi(\theta)$. Hence the induced allocations converge to $\phi(\theta)$.
 \end{proof}
 
 
